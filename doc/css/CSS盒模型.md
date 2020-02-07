@@ -144,6 +144,7 @@ BFC内部特性：
   background: #fcc;
 }
 ```
+![两栏布局](/images/css/box-sizing/left-main1.png)
 
 第4条：BFC的区域不会与float box重叠。我们可以通过通过触发main生成BFC， 来实现自适应两栏布局。
 ```css
@@ -160,7 +161,7 @@ BFC内部特性：
   background: #fcc;
 }
 ```
-![两栏布局](/images/css/box-sizing/left-main.png)
+![两栏布局](/images/css/box-sizing/left-main2.png)
 
 #### 清除内部浮动
 开始，box 下的元素都设置为浮动，脱离文档，此时 box 的高度为 0
@@ -182,6 +183,8 @@ BFC内部特性：
   background: #f66;
 }
 ```
+![清除内部浮动](/images/css/box-sizing/float-left1.png)
+
 修改：根据BFC布局规则第6条：计算BFC的高度时，浮动元素也参与计算，为达到清除内部浮动，我们可以触发box生成BFC，那么box在计算高度时，box内部的浮动元素item也会参与计算。
 ```css
 .box {
@@ -196,6 +199,7 @@ BFC内部特性：
   background: #f66;
 }
 ```
+![清除内部浮动](/images/css/box-sizing/float-left2.png)
 
 #### 防止垂直 margin 重叠
 垂直方向上的两个外边距相遇时，会折叠成一个外边距，折叠后外边距的高度等于两者中较大的那个高度。
@@ -218,6 +222,8 @@ BFC内部特性：
   background: #f66;
 }
 ```
+![垂直 margin 重叠](/images/css/box-sizing/margin-top1.png)
+
 如果想要防止垂直 margin 重叠，根据BFC布局规则第二条：Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠。
 ```html
 <ul class="wrap-box"></ul>
@@ -245,6 +251,8 @@ BFC内部特性：
   background: #f66;
 }
 ```
+![防止垂直 margin 重叠](/images/css/box-sizing/margin-top2.png)
+
 其实以上的几个例子都体现了BFC布局规则第五条：BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。
 
 
