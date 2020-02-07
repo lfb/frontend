@@ -160,6 +160,7 @@ BFC内部特性：
   background: #fcc;
 }
 ```
+![两栏布局](/images/css/box-sizing/left-main.png)
 
 #### 清除内部浮动
 开始，box 下的元素都设置为浮动，脱离文档，此时 box 的高度为 0
