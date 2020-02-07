@@ -17,10 +17,11 @@
   width: 100px;
   height: 100px;
   padding: 10px;
-  margin: 10px auto;
+  margin: 10px;
   border: 10px solid #2d8cf0;
 }
 ```
+![context-box](/images/css/box-sizing/context-box.png)
 
 **border-box**: width/height = context + padding + border，下面的盒子的宽度设置为100px，那么它的盒模型属性分别为：
 - context = 60px 
@@ -34,10 +35,11 @@
   width: 100px;
   height: 100px;
   padding: 10px;
-  margin: 10px auto;
+  margin: 10px;
   border: 10px solid #2d8cf0;
 }
 ```
+![border-box](/images/css/box-sizing/border-box.png)
 
 **JS获取盒子宽度**
 
