@@ -2,7 +2,8 @@
 **盒模型是什么？**
 页面的所有元素都可以被看作一个矩形盒子，这个盒子包含元素的 `context, padding, border, margin`。
 
-通过修改 **box-sizing：context-box（默认） | border-box**
+盒模型分为2种：第一种是标准盒模型，第二种是IE模型，他们的区别就是计算宽高度方式不一样。
+通过修改 **box-sizing：context-box（默认，标准模型） | border-box（IE模型）**
 属性可以改变计算盒子大小的方式。
 
 **context-box**: width/height = context，下面的盒子的宽度设置为100px，那么它的盒模型属性分别为：
