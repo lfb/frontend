@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>外边距折叠</title>
+  <style>
+    html, body, div {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box1 {
+      width: 100px;
+      height: 100px;
+      background: red;
+      margin-bottom: 100px;
+    }
+
+    .box2 {
+      /* 2 个盒子发生折叠，实际上的外边距是 200px */
+      margin-bottom: 200px;
+      width: 100px;
+      height: 100px;
+      background: blue;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box1"></div>
+<div class="box2"></div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>盒模型</title>
+  <style>
+    html, body, div {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      margin: 10px auto;
+      border: 10px solid #2d8cf0;
+      /*color: #2d8cf0;*/
+      /*background: #fff;*/
+      /*font-weight: bold;*/
+      /*text-align: center;*/
+      /*display: flex;*/
+      /*align-items: center;*/
+      /*justify-content: center;*/
+    }
+  </style>
+</head>
+<body>
+<div class="box"></div>
+
+<script>
+  var box = document.querySelector('.box')
+
+  console.log(`box-sizing: content-box;`)
+  console.log(`box.style.width = ${box.style.width}`) // 内联样式
+  // console.log(box.currentWidth.width) // 只能在 IE 用
+  console.log(`box.offsetWidth = ${box.offsetWidth}`) // 结果包括内边距，包括边框
+  console.log(`getComputedStyle(box).width = ${getComputedStyle(box).width}`)
+  console.log(`box.getBoundingClientRect().width = ${box.getBoundingClientRect().width}`)
+</script>
+</body>
+</html>
