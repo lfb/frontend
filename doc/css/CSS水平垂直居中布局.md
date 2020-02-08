@@ -72,7 +72,7 @@
 }
 ```
 
-#### 方法四：grid + align-self + justify-self
+#### 方法五：grid + align-self + justify-self
 ```css
 .parent {
     display: grid;
