@@ -1,6 +1,8 @@
 ## 水平居中布局
 水平居中布局就是指当前元素在父级元素容器中，水平方向是居中显示的
 
+![水平居中布局](/images/css/layout/水平居中布局.png)
+
 html结构
 ```html
 <ul class="parent">

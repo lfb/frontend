@@ -1,6 +1,8 @@
 ## 垂直居中布局
 垂直居中布局指当前元素在父级元素容器中，垂直方向是居中显示的
 
+![垂直居中布局](/images/css/layout/垂直居中布局.png)
+
 html结构
 ```html
 <ul class="parent">

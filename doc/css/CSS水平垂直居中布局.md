@@ -1,6 +1,8 @@
 ## 水平垂直居中布局
 水平垂直居中布局就是既要水平居中，也要垂直居中
 
+![水平垂直居中布局](/images/css/layout/水平垂直居中布局.png)
+
 ```html
 <div class="parent">
   <div class="child">水平垂直居中布局</div>
