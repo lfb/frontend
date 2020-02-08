@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>等分布局</title>
+  <style>
+    .parent {
+      width: 100%;
+    }
+
+    .column1, .column2, .column3, .column4 {
+      width: 25%;
+      height: 320px;
+      float: left;
+      color: #fff;
+    }
+
+    .column1, .column3 {
+      background: #ffcccc;
+    }
+
+    .column2, .column4 {
+      background: #ff6666;
+    }
+  </style>
+</head>
+<body>
+<div class="parent">
+  <div class="column1">1</div>
+  <div class="column2">2</div>
+  <div class="column3">3</div>
+  <div class="column4">4</div>
+</div>
+</body>
+</html>

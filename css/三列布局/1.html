@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>两栏布局</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    div{
+      color: #fff;
+      height: 300px;
+    }
+
+    .left, .center {
+      width: 200px;
+      background: #f00;
+      float: left;
+    }
+
+    .center {
+      width: 200px;
+      background: #f66;
+    }
+
+    .right {
+      overflow: hidden;
+      background: #fcc;
+    }
+
+  </style>
+</head>
+<body>
+<div class="left">left：定宽</div>
+<div class="center">center：定宽</div>
+<div class="right">right: 自适应</div>
+</body>
+</html>

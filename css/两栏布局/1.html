@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>两栏布局</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .left {
+      color: #fff;
+      width: 200px;
+      /*脱离文档流*/
+      float: left;
+      height: 320px;
+      background: #fcc;
+    }
+
+    .right {
+      color: #fff;
+      margin-left: 200px;
+      height: 320px;
+      background: #f66;
+    }
+
+  </style>
+</head>
+<body>
+<div class="left">left：定宽</div>
+<div class="right">
+  right：自适应
+</div>
+</body>
+</html>

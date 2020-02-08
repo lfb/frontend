@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS3多栏布局</title>
+  <style>
+    html, body, div {
+      margin: 0;
+      padding: 0;
+    }
+
+    .parent {
+      column-count: 3;
+      column-width: 200px;
+      /*等同于*/
+      columns: 3 200px;
+    }
+
+    .column1, .column2, .column3 {
+      height: 320px;
+      color: #fff;
+      background: #2d8cf0;
+    }
+  </style>
+</head>
+<body>
+<div class="parent">
+  <div class="column1">column1</div>
+  <div class="column2">column2</div>
+  <div class="column3">column3</div>
+</div>
+</body>
+</html>

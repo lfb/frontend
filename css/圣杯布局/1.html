@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>两栏布局</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .parent {
+      margin: 0 200px;
+    }
+
+    .left, .center, .right {
+      float: left;
+      height: 300px;
+      color: #fff;
+    }
+
+    .center {
+      width: 100%;
+      background: #f00;
+    }
+
+    .left, .right {
+      width: 200px;
+      position: relative;
+    }
+
+    .left {
+      margin-left: -100%;
+      left: -200px;
+      background: #f66;
+    }
+
+    .right {
+      margin-left: -200px;
+      right: -200px;
+      background: #fccc;
+    }
+  </style>
+</head>
+<body>
+<div class="parent">
+  <div class="center">center 自适应</div>
+  <div class="left">left：定宽</div>
+  <div class="right">right: 定宽</div>
+</div>
+</body>
+</html>

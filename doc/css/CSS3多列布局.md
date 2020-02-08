@@ -6,12 +6,12 @@
 - column-span
 - columns-fill(兼容性不好)
 
+![CSS3多列布局](/images/css/layout/CSS3多栏布局.png)
+
 #### columns-width 规定列的宽度
+定义列的宽度，参数：auto | length
+
 ```html
-定义列的宽度：
-
-参数：auto | length
-
 <div class="parent">
     <div class="column1">column1</div>
     <div class="column2">column2</div>
