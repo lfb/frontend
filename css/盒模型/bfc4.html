@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>外边距折叠</title>
   <style>
     html, body, ul, li {
       margin: 0;
@@ -13,18 +13,14 @@
       list-style: none;
     }
 
-    .wrap-box {
+    .box1 {
       width: 120px;
       height: 120px;
       background: #f66;
       margin-bottom: 100px;
     }
 
-    .inner {
-      overflow: hidden;
-    }
-
-    .inner-box {
+    .box2 {
       margin-top: 100px;
       width: 120px;
       height: 120px;
@@ -33,9 +29,7 @@
   </style>
 </head>
 <body>
-<ul class="wrap-box"></ul>
-<div class="inner">
-  <ul class="inner-box"></ul>
-</div>
+<ul class="box1"></ul>
+<ul class="box2"></ul>
 </body>
 </html>

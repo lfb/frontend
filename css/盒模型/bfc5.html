@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>防止外边距折叠</title>
   <style>
     html, body, ul, li {
       margin: 0;
@@ -13,14 +13,18 @@
       list-style: none;
     }
 
-    .box1 {
+    .wrap-box {
       width: 120px;
       height: 120px;
       background: #f66;
       margin-bottom: 100px;
     }
 
-    .box2 {
+    .inner {
+      overflow: hidden;
+    }
+
+    .inner-box {
       margin-top: 100px;
       width: 120px;
       height: 120px;
@@ -29,7 +33,9 @@
   </style>
 </head>
 <body>
-<ul class="box1"></ul>
-<ul class="box2"></ul>
+<ul class="wrap-box"></ul>
+<div class="inner">
+  <ul class="inner-box"></ul>
+</div>
 </body>
 </html>
