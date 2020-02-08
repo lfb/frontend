@@ -2,6 +2,7 @@
 
 ### CSS 
 - [CSS盒模型](doc/css/CSS盒模型.md)
+- [CSS水平居中布局](doc/css/CSS水平居中布局.md)
 
 ### 作用域
 #### 学习目标：
