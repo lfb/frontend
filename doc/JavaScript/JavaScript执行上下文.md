@@ -262,20 +262,26 @@ outerContext = {
         },
         inner: <reference function inner>
     },
-    Scope: [AO, outer.[[scope]], global.[[scope]]]
+    Scope: [AO, outer.[[scope]]]]
 }
 ```
 
 执行 fn 函数的初始化阶段：
 
 ```js
+// fnContext 的词法作用域链
+fnContext.[[scope]] = [
+    globalContext.VO,
+    outerContext.AO
+]
+
 fnContext = {
     VO: {
         arguments: {
             length: 0
         }
     },
-    Scope: [VO, inner.[[scope]], outer.[[scope]], global.[[scope]]]
+    Scope: [VO, fnContext.[[scope]]]
 }
 ```
 
