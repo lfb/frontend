@@ -276,12 +276,12 @@ fnContext.[[scope]] = [
 ]
 
 fnContext = {
-    VO: {
+    AO: {
         arguments: {
             length: 0
         }
     },
-    Scope: [VO, fnContext.[[scope]]]
+    Scope: [AO, fnContext.[[scope]]]
 }
 ```
 
