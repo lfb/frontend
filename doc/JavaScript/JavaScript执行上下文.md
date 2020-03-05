@@ -307,20 +307,23 @@ fn2() // 11
 - 同一个函数中创建的自由变量是可以在不同的闭包共享的。
 ```js
 function outer() {
-	var a = 10
-	function bar() {
-		console.log(a ++)
-	}
-	function baz{
-		console.log(a ++)
-	}
-	
-	return {
-		bar,
-		baz
-	}
+  var a = 10
+
+  function bar() {
+    console.log(a++)
+  }
+
+  function baz() {
+    console.log(a++)
+  }
+
+  return {
+    bar,
+    baz
+  }
 }
-var fn =  outer()
+
+var fn = outer()
 fn.bar() // 10
 fn.baz() // 11
 ```
