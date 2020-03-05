@@ -85,29 +85,33 @@ fn(10, 20)
 
 进入上下文阶段，此时函数的 VO 为：
 ```js
-VO = {
-    arguments: {
-        0: 10,
-        1: 20,
-        length: 2
-    },
-    bar: <reference to function 'bar'>
-    c: undefined,
-    d: undefined
+fnContext = {
+    VO = {
+        arguments: {
+            0: 10,
+            1: 20,
+            length: 2
+        },
+        bar: <reference to function 'bar'>
+        c: undefined,
+        d: undefined
+    }
 }
 ```
 
 进入代码执行阶段，此时函数的 VO 为：
 ```js
-VO = {
-    arguments: {
-        0: 10,
-        1: 20,
-        length: 2
-    },
-    bar: <reference to function 'bar'>,
-    c: 30,
-    d: <reference to FunctionExpression 'd'>
+fnContext = {
+    VO = {
+        arguments: {
+            0: 10,
+            1: 20,
+            length: 2
+        },
+        bar: <reference to function 'bar'>,
+        c: 30,
+        d: <reference to FunctionExpression 'd'>
+    }
 }
 ```
 
