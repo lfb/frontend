@@ -41,8 +41,6 @@ ECS.pop()
 ECS = ['globalContext']   
 ```
 
-[捋一捋 JavaScript执行上下文的变量对象、作用域链、this和闭包的过程](doc/JavaScript/捋一捋JavaScript执行上下文的变量对象、作用域链、this和闭包的过程.md)
-
 #### 执行上下文的生命周期
 执行上下文的生命周期分为2个：创建阶段和执行阶段。
 - 创建阶段：
