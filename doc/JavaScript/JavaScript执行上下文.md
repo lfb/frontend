@@ -264,7 +264,7 @@ outerContext = {
         },
         inner: <reference function inner>
     },
-    Scope: [AO, outer.[[scope]]]],
+    Scope: [AO, globalContext.VO],
     this: window
 }
 ```
@@ -282,8 +282,8 @@ fn 函数执行完后，返回了 inner 函数且赋给了 fn，fn 就是 outer 
 
 ```js
 fn.[[scope]] = /* inner.[[scope]] = */ [
-    globalContext.VO,
-    outerContext.AO
+    outerContext.AO,
+    globalContext.VO
 ]
 
 fnContext = {
@@ -292,11 +292,11 @@ fnContext = {
             length: 0
         }
     },
-    Scope: [AO, fn.[[scope]]]
+    Scope: [AO, outerContext.AO, globalContext.VO]
 }
 ```
 
-执行 fn 函数上下文的阶段，查询的是 b 变量，在当前作用域下没有 b 变量，则顺着作用域链去它上一层的作用域找到了，则输出 10。
+执行 fn 函数上下文的阶段，查询的是 b 变量，在当前作用域下没有 b 变量，则顺着作用域链去它父级 outerContext.AO 的作用域找到了，则输出 10。
 
 值得注意的点：
 - 闭包所访问的变量，是每次运行父函数都重新创建，互相独立的。
@@ -336,9 +336,11 @@ fn.baz() // 11
 - 灵活方便
 - 封装
 - 模块化
+- 解决 for 循环闭包的问题
 
 
 闭包的缺点：
 - 空间浪费
 - 内存泄露
 - 内存消耗
+
