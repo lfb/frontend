@@ -255,9 +255,7 @@ outerContext = {
     Scope: outer.[[scope]]
 }
 ```
-
-然后下一步到了 outer 函数执行的阶段，且返回 inner 函数，保存到了 fn 函数：
-
+然后下一步到了 outer 函数执行的阶段，此时的 outer 的上下文为：
 ```js
 outerContext = {
     AO: {
@@ -266,15 +264,24 @@ outerContext = {
         },
         inner: <reference function inner>
     },
-    Scope: [AO, outer.[[scope]]]]
+    Scope: [AO, outer.[[scope]]]],
+    this: window
 }
 ```
 
-执行 fn 函数的初始化阶段：
+定义 inner 函数时的词法作用域链为：
 
 ```js
-// fnContext 的词法作用域链
-fnContext.[[scope]] = [
+inner.[[scope]] = [
+    globalContext.VO,
+    outerContext.AO
+]
+```
+
+fn 函数执行完后，返回了 inner 函数且赋给了 fn，fn 就是 outer 函数里面的 inner 函数，调用 fn 函数时，会初始化
+
+```js
+fn.[[scope]] = /* inner.[[scope]] = */ [
     globalContext.VO,
     outerContext.AO
 ]
@@ -285,11 +292,11 @@ fnContext = {
             length: 0
         }
     },
-    Scope: [AO, fnContext.[[scope]]]
+    Scope: [AO, fn.[[scope]]]
 }
 ```
 
-执行 fn 函数上下文的阶段，查询的是 b 变量，在当前作用域下没有 b 变量，则用户作用域链去它上一层的作用域找到了，则输出 10。
+执行 fn 函数上下文的阶段，查询的是 b 变量，在当前作用域下没有 b 变量，则顺着作用域链去它上一层的作用域找到了，则输出 10。
 
 值得注意的点：
 - 闭包所访问的变量，是每次运行父函数都重新创建，互相独立的。
@@ -307,23 +314,20 @@ fn2() // 11
 - 同一个函数中创建的自由变量是可以在不同的闭包共享的。
 ```js
 function outer() {
-  var a = 10
-
-  function bar() {
-    console.log(a++)
-  }
-
-  function baz() {
-    console.log(a++)
-  }
-
-  return {
-    bar,
-    baz
-  }
+	var a = 10
+	function bar() {
+		console.log(a ++)
+	}
+	function baz{
+		console.log(a ++)
+	}
+	
+	return {
+		bar,
+		baz
+	}
 }
-
-var fn = outer()
+var fn =  outer()
 fn.bar() // 10
 fn.baz() // 11
 ```
