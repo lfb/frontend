@@ -18,7 +18,7 @@ const ExecutionContext = {
 包含2个上下文：
 1. 全局执行上下文（只有一个）
 2. 函数执行上下文（每次调用函数都会创建一个新的上下文）
-> JS引擎首先会创建一个执行上下文栈，作用是管理上下文。在JS解释器初始化时首先创建一个全局上下文且压入上下文栈顶中，随着遇到函数调用时，会创建一个新的函数执行上下文且压入到上下文栈顶中，随着函数执行完后，会被上下文栈顶弹出，直回到全局上下文。
+> JS引擎首先会创建一个执行上下文栈，作用是管理上下文。在JS解释器初始化时首先创建一个全局上下文且压入上下文栈顶中，随着每次遇到函数调用时，都会创建一个新的函数执行上下文且压入到上下文栈顶中，随着函数执行完后，会被上下文栈顶弹出，直回到全局上下文。
 
 例子：
 ```js
@@ -56,7 +56,7 @@ ECS = ['globalContext']
 ## 变量对象
 变量对象全称：Variable Object，变量对象是与执行上下文相关的数据作用域，存储了在上下文中定义的变量和函数声明。因为不同执行上下文下的变量对象稍有不同，分为：全局上下文下的变量对象和函数上下文下的变量对象。
 - 进入上下文阶段：
-    - 如果是函数上下文，会处理函数参数：如果没有传入，则初始化参数值为undefined
+    - 如果是函数上下文，会处理函数参数 arguments，如果没有传入实参，则初始化参数值为undefined
     - 函数声明：如果发生函数名字相同，则后者会覆盖前者
     - 变量声明：初始化变量为undefined，如果发生与其他变量或者函数声明同名，则会忽略 
 - 代码执行阶段：
@@ -72,46 +72,50 @@ ECS = ['globalContext']
 ```
 
 #### 函数上下文
-函数有个特别的地方就是用 AO 来代表 VO，其实他们是同样的东西。
+函数有个特别的地方就是用活动对象（Activation Object）来表示变量对象（Variable Object）。其实他们是同样的东西。
 
 ```js
 function fn(a, b) {
-   function bar() {}
-   var c = 30
-   var d = function baz() {}
+  function bar() {
+  }
+
+  var c = 30
+  var d = function baz() {
+  }
 }
+
 fn(10, 20)
 ```
 
 进入上下文阶段，此时函数的 VO 为：
 ```js
 fnContext = {
-    VO = {
-        arguments: {
-            0: 10,
-            1: 20,
-            length: 2
-        },
-        bar: <reference to function 'bar'>
-        c: undefined,
-        d: undefined
-    }
+  VO: {
+    arguments: {
+      0: 10,
+      1: 20,
+      length: 2
+    },
+    bar: "<reference to function bar() {}>",
+    c: undefined,
+    d: undefined
+  }
 }
 ```
 
 进入代码执行阶段，此时函数的 VO 为：
 ```js
 fnContext = {
-    VO = {
-        arguments: {
-            0: 10,
-            1: 20,
-            length: 2
-        },
-        bar: <reference to function 'bar'>,
-        c: 30,
-        d: <reference to FunctionExpression 'd'>
-    }
+  VO: {
+    arguments: {
+      0: 10,
+      1: 20,
+      length: 2
+    },
+    bar: "<reference to function bar() {}>",
+    c: 30,
+    d: "<reference to FunctionExpression baz() {}>"
+  }
 }
 ```
 
@@ -123,9 +127,11 @@ JavaScript 采用的是静态词法作用域，也就是说函数的作用域在
 代码：
 ```js
 var a = 10
+
 function fn(a) {
-    var b = 30
+  var b = 30
 }
+
 fn(20)
 ```
 
@@ -152,28 +158,28 @@ ECS.push('<fn functionContext>')
     1. 初始化arguments, 函数声明，变量声明 
 ```js
 fnContext = {
-    AO: {
-        arguments: {
-            0: 20
-            length: 1
-        },
-        b: undefined
+  AO: {
+    arguments: {
+      0: 20,
+      length: 1
     },
-    Scope: fn.[[scope]]
+    b: undefined
+  },
+  Scope: fn.[[scope]]
 }
 ```
 
 接着把 AO 压入 fn 作用域顶端，fn 函数创建的时候，保存的是根据词法所生成的作用域链，fn 执行的时候，会复制这个作用域链，作为自己作用域链的初始化，然后根据环境生成变量对象，然后将这个变量对象，添加到这个复制的作用域链，这才完整的构建了自己的作用域链。至于为什么会有两个作用域链，是因为在函数创建的时候并不能确定最终的作用域的样子，为什么会采用复制的方式而不是直接修改呢？应该是因为函数会被调用很多次吧。
 ```js
 fnContext = {
-    AO: {
-        arguments: {
-            0: 20,
-            length: 1
-        },
-        b: undefined
+  AO: {
+    arguments: {
+      0: 20,
+      length: 1
     },
-    Scope: [AO, fn.[[scope]]]
+    b: undefined
+  },
+  Scope: [AO, fn.[[scope]]]
 }
 ```
 
@@ -195,14 +201,14 @@ this 的指向是函数被调用的才确立的，分5种情况：
 再下一步就是进入函数执行阶段，按顺序进行执行，对变量进行赋值等操作：
 ```js
 fnContext = {
-    AO: {
-        arguments: {
-            0: 20,
-            length: 1
-        },
-        b: 30
+  AO: {
+    arguments: {
+      0: 20,
+      length: 1
     },
-    Scope: [AO, fn.[[scope]]]
+    b: 30
+  },
+  Scope: [AO, fn.[[scope]]]
 }
 ```
 
@@ -223,7 +229,7 @@ function outer() {
   return inner
 
   function inner() {
-    console.log(b ++)
+    console.log(b++)
   }
 }
 
@@ -246,26 +252,26 @@ outer.[[scope]] = [
 此时的 outerContext 的 AO 为：
 ```js
 outerContext = {
-    AO: {
-        arguments: {
-            length: 0
-        },
-        inner: <reference function inner>
+  AO: {
+    arguments: {
+      length: 0
     },
-    Scope: outer.[[scope]]
+    inner: "<reference function inner() {}>"
+  },
+  Scope: outer.[[scope]]
 }
 ```
 然后下一步到了 outer 函数执行的阶段，此时的 outer 的上下文为：
 ```js
 outerContext = {
-    AO: {
-        arguments: {
-            length: 0
-        },
-        inner: <reference function inner>
+  AO: {
+    arguments: {
+      length: 0
     },
-    Scope: [AO, globalContext.VO],
-    this: window
+    inner: "<reference function inner() {}>"
+  },
+  Scope: [AO, globalContext.VO],
+  this: window
 }
 ```
 
@@ -282,17 +288,17 @@ fn 函数执行完后，返回了 inner 函数且赋给了 fn，fn 就是 outer 
 
 ```js
 fn.[[scope]] = /* inner.[[scope]] = */ [
-    outerContext.AO,
-    globalContext.VO
+  outerContext.AO,
+  globalContext.VO
 ]
 
 fnContext = {
-    AO: {
-        arguments: {
-            length: 0
-        }
-    },
-    Scope: [AO, outerContext.AO, globalContext.VO]
+  AO: {
+    arguments: {
+      length: 0
+    }
+  },
+  Scope: [AO, outerContext.AO, globalContext.VO]
 }
 ```
 
@@ -314,20 +320,23 @@ fn2() // 11
 - 同一个函数中创建的自由变量是可以在不同的闭包共享的。
 ```js
 function outer() {
-	var a = 10
-	function bar() {
-		console.log(a ++)
-	}
-	function baz{
-		console.log(a ++)
-	}
-	
-	return {
-		bar,
-		baz
-	}
+  var a = 10
+
+  function bar() {
+    console.log(a++)
+  }
+
+  function baz() {
+    console.log(a++)
+  }
+
+  return {
+    bar,
+    baz
+  }
 }
-var fn =  outer()
+
+var fn = outer()
 fn.bar() // 10
 fn.baz() // 11
 ```
